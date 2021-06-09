@@ -56,6 +56,9 @@ type IPSet interface {
 
 	// Name returns the set's name
 	Name() string
+	
+	// Name returns the SetType
+	SetType() SetType
 
 	// Rename the set's action and the new action must not exist.
 	Rename(newName string) error

@@ -32,6 +32,10 @@ type Info struct {
 	Entries      []string
 }
 
+func NewSet(name string, setType SetType) IPSet {
+	return set{name: name, setType: setType}
+}
+
 func (s set) List(options ...Option) (*Info, error) {
 	c := getCmd(_list, s.name, s.setType)
 	defer putCmd(c)
@@ -94,6 +98,10 @@ func (s set) ListToFile(filename string, options ...Option) error {
 
 func (s set) Name() string {
 	return s.name
+}
+
+func (s set) SetType() SetType {
+	return s.setType
 }
 
 func (s set) Rename(newName string) error {

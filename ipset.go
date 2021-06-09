@@ -210,11 +210,12 @@ func Check() error {
 }
 
 func isSupported() (bool, error) {
-	out, err := execCommand(ipsetPath, _version).
-		CombinedOutput()
-
+	cmd := execCommand(ipsetPath, _version)
+	var b bytes.Buffer
+	cmd.Stdout = &b
+	err := cmd.Run()
 	if err == nil {
-		return getMajorVersion(out) >= minMajorVersion, nil
+		return getMajorVersion(b.Bytes()) >= minMajorVersion, nil
 	}
 
 	return false, err
